@@ -23,14 +23,16 @@ $(document).ready(function () {
   });
 
   $('#scramble-button').click(function (event) {
-    var scramble = function ($row) {
-      var $street = $row.children('.street');
-      $street.text($street.text() + $street.text() + $street.text());
-      
-      var $nextRow = $row.next().next();
-      window.setTimeout(function () { scramble($nextRow); }, 0);
-    };
+    var $firstRow = $('#address-list').children().first();
 
-    scramble($('#address-list').children().first());
+    (function loop($row) {
+      if ($row.length > 0) {
+        new Promise(function (resolve, reject) {
+          var $street = $row.children('.street');
+          $street.text($street.text() + $street.text() + $street.text());
+          resolve();
+        }).then(loop.bind(null, $row.next().next()));
+      }
+    })($firstRow);
   });
 });
