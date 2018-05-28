@@ -5,7 +5,7 @@ var app = require(path.resolve(__dirname, '../server'));
 var faker = require('faker');
 
 module.exports = function generateAddresses() {
-  for (var index = 0; index < 1000; index++) {
+  for (var index = 0; index < 10000; index++) {
     var address = {
       firstname: faker.name.firstName(),
       lastname: faker.name.lastName(),
